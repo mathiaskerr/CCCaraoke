@@ -31,5 +31,5 @@ class TestGuest(unittest.TestCase):
         self.assertEqual("Fack", self.guest_1.fav_song)
 
     def test_remove_from_wallet(self):
-        self.guest_1.remove_from_wallet(self.room.charge)
+        self.guest_list[0].remove_from_wallet(self.guest_list , self.room.charge)
         self.assertEqual(30, self.guest_1.wallet)

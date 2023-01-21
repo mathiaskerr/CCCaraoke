@@ -26,3 +26,7 @@ class Room:
     def add_to_till(self, purchased_item):
         self.venue_till += purchased_item    
 
+    def check_in_and_pay(self, guests, room_cost):
+        self.add_person_to_room(guests)
+        self.add_to_till(room_cost)
+        guest.remove_from_wallet(guests, room_cost)

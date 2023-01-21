@@ -39,7 +39,6 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(1, len(self.room.people_in_room))
 
     def test_add_multiple_persons_to_room(self):
-        
         self.room.add_person_to_room(self.guest_list)
         self.assertEqual(2, len(self.room.people_in_room))
 
@@ -52,4 +51,10 @@ class TestRoom(unittest.TestCase):
         self.room.add_to_till(self.room.charge)
         self.assertEqual(1020, self.room.venue_till)
 
-        
+    def test_check_in_and_pay(self):
+        self.room.add_person_to_room(self.guest_list)
+        self.room.add_to_till(self.room.charge)     
+        self.guest_list[0].remove_from_wallet(self.guest_list , self.room.charge)
+        self.assertEqual(2, len(self.room.people_in_room))
+        self.assertEqual(1020, self.room.venue_till)
+        self.assertEqual(30, self.guest_1.wallet)
