@@ -14,8 +14,15 @@ class Room:
                 return x
 
     def add_person_to_room(self, guest_list):
-        for guest in guest_list:
-            self.people_in_room.append(guest) 
+        if self.capacity - len(self.people_in_room) >= len(guest_list):
+            for guest in guest_list:
+                self.people_in_room.append(guest) 
+        else:
+            return "This room does not have enough space"        
 
     def checkout(self):
         self.people_in_room.clear()
+
+    def add_to_till(self, purchased_item):
+        self.venue_till += purchased_item    
+

@@ -48,3 +48,8 @@ class TestRoom(unittest.TestCase):
         self.room.checkout()
         self.assertEqual(0,len(self.room.people_in_room))
         
+    def test_add_money_to_till(self):
+        self.room.add_to_till(self.room.charge)
+        self.assertEqual(1020, self.room.venue_till)
+
+        

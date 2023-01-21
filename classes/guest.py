@@ -5,4 +5,5 @@ class Guest:
         self.wallet = wallet
         self.fav_song = fav_song
 
-    
+    def remove_from_wallet(self, purchased_item):
+        self.wallet -= purchased_item
