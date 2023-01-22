@@ -2,6 +2,7 @@ import unittest
 from classes.room import Room
 from classes.guest import Guest
 from classes.song import Song
+from classes.drink import Drink
 
 class TestRoom(unittest.TestCase):
     def setUp(self):
@@ -17,6 +18,11 @@ class TestRoom(unittest.TestCase):
         song_list = [self.song_1, self.song_2, self.song_3]
 
         self.room = Room("Elvis Room", song_list, 20 , 2 )
+
+        self.drink_1 = Drink("Pint", 3)
+        self.drink_2 = Drink("Cocktail", 10)
+        self.drink_3 = Drink("Wine", 4)
+
     
     
     def test_room_has_name(self):
@@ -33,8 +39,7 @@ class TestRoom(unittest.TestCase):
         self.assertEqual("Fack", song.name)
 
     def test_add_person_to_room(self):
-        guest_1 = Guest("Mike", 30 , 50, "Fack")
-        guest_list = [guest_1]
+        guest_list = [self.guest_1]
         self.room.add_person_to_room(guest_list)
         self.assertEqual(1, len(self.room.people_in_room))
 
@@ -52,9 +57,24 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(1020, self.room.venue_till)
 
     def test_check_in_and_pay(self):
-        self.room.add_person_to_room(self.guest_list)
-        self.room.add_to_till(self.room.charge)     
-        self.guest_list[0].remove_from_wallet(self.guest_list , self.room.charge)
+        self.room.check_in_and_pay(self.guest_list , self.room.charge)
         self.assertEqual(2, len(self.room.people_in_room))
         self.assertEqual(1020, self.room.venue_till)
         self.assertEqual(30, self.guest_1.wallet)
+
+    def test_favourite_song(self):
+        # self.room.search_room_for_song(self.guest_1.fav_song)
+        self.assertEqual("Whoooo", self.room.favourite_song(self.guest_1.fav_song))
+
+    def test_add_drink_to_bar_tab(self):
+        self.room.add_to_bar_tab(self.drink_1.price)
+        self.room.add_to_bar_tab(self.drink_2.price)
+        self.assertEqual(13, self.room.bar_tab)
+
+    def test_pay_bar_tab(self):
+        self.room.add_to_bar_tab(self.drink_1.price)
+        self.room.add_to_bar_tab(self.drink_2.price)
+        self.room.pay_bar_tab(self.guest_list, self.room.bar_tab)
+        self.assertEqual(37, self.guest_1.wallet)
+        self.assertEqual(1013, self.room.venue_till)
+        self.assertEqual(0 , self.room.bar_tab)
