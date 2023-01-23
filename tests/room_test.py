@@ -74,7 +74,12 @@ class TestRoom(unittest.TestCase):
     def test_pay_bar_tab(self):
         self.room.add_to_bar_tab(self.drink_1.price)
         self.room.add_to_bar_tab(self.drink_2.price)
+        self.room.add_to_bar_tab(self.drink_3.price)
         self.room.pay_bar_tab(self.guest_list, self.room.bar_tab)
-        self.assertEqual(37, self.guest_1.wallet)
-        self.assertEqual(1013, self.room.venue_till)
+        self.assertEqual(33, self.guest_1.wallet)
+        self.assertEqual(1017, self.room.venue_till)
         self.assertEqual(0 , self.room.bar_tab)
+
+
+    def test_getting_id_for_drink(self):
+            
